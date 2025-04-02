@@ -1,4 +1,4 @@
 data_ingestion:
-  bucket_name = "efosa-hotel-data"
-  bucket_file_name = "hotel_reservations.csv"
-  train_size = 0.8
+  bucket_name: "efosa-hotel-data"
+  bucket_file_name: "hotel_reservations.csv"
+  train_size: 0.8
