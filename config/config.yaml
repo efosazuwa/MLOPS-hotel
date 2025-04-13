@@ -30,3 +30,4 @@ data_processing:
   skew_threshold: 5
   random_state: 30
   no_of_features: 10
+  target_column: booking_status
