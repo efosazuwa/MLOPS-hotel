@@ -28,3 +28,4 @@ data_processing:
     - no_of_week_nights
     - no_of_weekend_nights
   skew_threshold: 5
+  random_state: 30
