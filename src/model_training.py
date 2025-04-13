@@ -1,6 +1,8 @@
 import os
 import pandas as pd
 import joblib
+import mlflow
+import mlflow.sklearn
 from sklearn.model_selection import RandomizedSearchCV
 import lightgbm as lgb
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
@@ -115,14 +117,27 @@ class ModelTrainer:
         
     def run(self):
         try:
-            logger.info("Starting model training pipeline")
+            with mlflow.start_run():
+                logger.info("Starting model training pipeline")
+                logger.info("Starting MLFlow run")
+                logger.info("Logging the training and testing dataset to MLFlow")
 
-            X_train, y_train, X_test, y_test = self.load_and_split_data()
-            best_lgbm_model = self.train_model(X_train, y_train)
-            evaluation_metrics = self.evaluate_model(best_lgbm_model, X_test, y_test)
-            self.save_model(best_lgbm_model)
+                mlflow.log_artifact(self.train_path, artifact_path="datasets")
+                mlflow.log_artifact(self.test_path, artifact_path="datasets")
 
-            logger.info("Model training pipeline completed successfully")
+                X_train, y_train, X_test, y_test = self.load_and_split_data()
+                best_lgbm_model = self.train_model(X_train, y_train)
+                evaluation_metrics = self.evaluate_model(best_lgbm_model, X_test, y_test)
+                self.save_model(best_lgbm_model)
+
+                logger.info("Logging model to MLFlow")
+                mlflow.log_artifact(self.model_output_path)
+
+                logger.info("Logging model params and metrics to MLFlow")
+                mlflow.log_params(best_lgbm_model.get_params())
+                mlflow.log_metrics(evaluation_metrics)
+
+                logger.info("Model training pipeline completed successfully")
 
         except Exception as e:
             logger.error(f"Error during model training pipeline: {e}")
