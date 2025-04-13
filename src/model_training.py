@@ -75,7 +75,7 @@ class ModelTrainer:
             logger.error(f"Error while training model: {e}")
             raise CustomException('Failed to train model', e)
         
-    def evaluate_model(self, model, X_test, y_test):
+    def evaluate_model(self, model, X_test, y_test) -> dict:
         try:
             logger.info("Starting model evaluation")
 
@@ -100,3 +100,14 @@ class ModelTrainer:
         except Exception as e:
             logger.error(f"Error during model evaluation: {e}")
             raise CustomException('Failed to evaluate model', e)
+        
+    def save_model(self, model):
+        try:
+            os.makedirs(os.path.dirname(self.model_output_path), exist_ok=True)
+
+            logger.info(f"Saving model to {self.model_output_path}")
+            joblib.dump(model, self.model_output_path)
+            logger.info("Model saved successfully")
+        except Exception as e:
+            logger.error(f"Error during model saving: {e}")
+            raise CustomException('Failed to save model', e)
