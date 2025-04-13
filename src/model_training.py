@@ -57,6 +57,7 @@ class ModelTrainer:
 
             random_search = RandomizedSearchCV(
                 estimator=lgbm_model,
+                param_distributions=self.params_dist,
                 **self.random_search_params
             )
 
@@ -111,3 +112,22 @@ class ModelTrainer:
         except Exception as e:
             logger.error(f"Error during model saving: {e}")
             raise CustomException('Failed to save model', e)
+        
+    def run(self):
+        try:
+            logger.info("Starting model training pipeline")
+
+            X_train, y_train, X_test, y_test = self.load_and_split_data()
+            best_lgbm_model = self.train_model(X_train, y_train)
+            evaluation_metrics = self.evaluate_model(best_lgbm_model, X_test, y_test)
+            self.save_model(best_lgbm_model)
+
+            logger.info("Model training pipeline completed successfully")
+
+        except Exception as e:
+            logger.error(f"Error during model training pipeline: {e}")
+            raise CustomException('Failed to train model', e)
+        
+if __name__ == "__main__":
+    model_trainer = ModelTrainer(PROCESSED_TRAIN_DATA_PATH, PROCESSED_TEST_DATA_PATH, MODEL_OUTPUT_PATH, CONFIG_PATH)
+    model_trainer.run()
