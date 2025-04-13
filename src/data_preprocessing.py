@@ -58,3 +58,22 @@ class DataProcessor:
         except Exception as e:
             logger.error(f"Error during data preprocessing: {e}")
             raise CustomException("Failed to preprocess data", e)
+        
+    def balance_data(self, df: pd.DataFrame):
+        try:
+            logger.info("Handling Imbalanced data")
+            X = df.drop(columns=['booking_status'])
+            y = df["booking_status"]
+
+            smote = SMOTE(random_state=30)
+            X_resampled, y_resampled = smote.fit_resample(X, y)
+
+            balanced_df = pd.DataFrame(X_resampled, columns=X.columns)
+            balanced_df["booking_status"] = y_resampled
+
+            logger.info("Balanced data shape: ", balanced_df.shape)
+            return balanced_df
+        
+        except Exception as e:
+            logger.error(f"Error during balancing step: {e}")
+            raise CustomException("Failed to balancee data", e)
