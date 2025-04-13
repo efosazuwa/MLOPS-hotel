@@ -26,4 +26,4 @@ def load_data(path: str):
         return pd.read_csv(path)
     except Exception as e:
         logger.error(f"Error loading the  data: {e}")
-        raise CustomException("failed to load data", e))
+        raise CustomException("failed to load data", e)
