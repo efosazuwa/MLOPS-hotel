@@ -12,3 +12,5 @@ wheels/
 # Unnecessary Project Data
 all_materials/
 artifacts/
+logs/
+mlruns/
