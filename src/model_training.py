@@ -74,3 +74,29 @@ class ModelTrainer:
         except Exception as e:
             logger.error(f"Error while training model: {e}")
             raise CustomException('Failed to train model', e)
+        
+    def evaluate_model(self, model, X_test, y_test):
+        try:
+            logger.info("Starting model evaluation")
+
+            y_pred = model.predict(X_test)
+
+            accuracy = accuracy_score(y_test, y_pred)
+            precision = precision_score(y_test, y_pred)
+            recall = recall_score(y_test, y_pred)
+            f1 = f1_score(y_test, y_pred)
+
+            logger.info(f"Accuracy: {accuracy}", extra={"accuracy": accuracy})
+            logger.info(f"Precision: {precision}", extra={"precision": precision})
+            logger.info(f"recall: {recall}", extra={"recall": recall})
+            logger.info(f"F1: {f1}", extra={"f1": f1})
+
+            return {
+                "accuracy": accuracy,
+                "precision": precision,
+                "recall": recall,
+                "f1": f1
+            }
+        except Exception as e:
+            logger.error(f"Error during model evaluation: {e}")
+            raise CustomException('Failed to evaluate model', e)
