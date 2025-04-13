@@ -50,3 +50,27 @@ class ModelTrainer:
     def train_model(self, X_train, y_train):
         try:
             logger.info("Initiallizing model")
+
+            lgbm_model = lgb.LGBMClassifier(random_state=self.random_search_params["random_state"])
+
+            logger.info("Starting Randomized Search CV")
+
+            random_search = RandomizedSearchCV(
+                estimator=lgbm_model,
+                **self.random_search_params
+            )
+
+            random_search.fit(X_train, y_train)
+
+            logger.info('Random search complete')
+
+            best_params = random_search.best_params_
+            best_lgbm_model = random_search.best_estimator_
+            
+            logger.info(f"Best parameters found", extra={"best_params": best_params})
+
+            return best_lgbm_model
+        
+        except Exception as e:
+            logger.error(f"Error while training model: {e}")
+            raise CustomException('Failed to train model', e)
