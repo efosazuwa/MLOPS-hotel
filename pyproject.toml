@@ -5,6 +5,7 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
+    "flask>=3.1.0",
     "google-cloud-storage>=3.1.0",
     "imbalanced-learn>=0.13.0",
     "ipykernel>=6.29.5",

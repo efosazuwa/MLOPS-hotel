@@ -764,6 +764,7 @@ name = "hotel-reservations"
 version = "0.1.0"
 source = { virtual = "." }
 dependencies = [
+    { name = "flask" },
     { name = "google-cloud-storage" },
     { name = "imbalanced-learn" },
     { name = "ipykernel" },
@@ -784,6 +785,7 @@ dependencies = [
 
 [package.metadata]
 requires-dist = [
+    { name = "flask", specifier = ">=3.1.0" },
     { name = "google-cloud-storage", specifier = ">=3.1.0" },
     { name = "imbalanced-learn", specifier = ">=0.13.0" },
     { name = "ipykernel", specifier = ">=6.29.5" },
