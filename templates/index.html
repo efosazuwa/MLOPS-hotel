@@ -101,6 +101,16 @@
             <button type="submit">Predict</button>
 
         </form>
+
+        {% if prediction is not None %}
+            <div class="result">
+                {% if prediction ==0 %}
+                    <p>The Customer is going to cancel their reservation</p>
+                {% else %}
+                    <p>The Customer is not going to cancel their reservation</p>
+                {% endif %}
+            </div>
+        {% endif %}
     </div>
 </body>
 </html>
