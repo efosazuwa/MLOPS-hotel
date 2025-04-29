@@ -25,6 +25,9 @@ pipeline{
                             export PATH="$HOME/.cargo/bin:$PATH"
                         fi
                         
+                        # Make sure the path is set
+                        source $HOME/.local/bin/env
+
                         # Make sure uv is available
                         uv --version
                     '''
