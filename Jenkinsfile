@@ -14,7 +14,7 @@ pipeline{
                 }
             }
         }
-        stage('Install UV Package Manager'){
+        stage('Install UV Package Manager and Dependencies'){
             steps{
                 script{
                     echo 'Installing UV package manager if not available...'
@@ -30,19 +30,11 @@ pipeline{
 
                         # Make sure uv is available
                         uv --version
-                    '''
-                }
-            }
-        }
-        stage('Setting up our virtual Enviornment and installing dependencies...'){
-            steps{
-                script{
-                    echo 'Setting up our virtual Enviornment and installing dependencies...'
-                    sh '''
+
                         uv sync --frozen
                         uv pip install -e .
                         uv pip list
-                        '''
+                    '''
                 }
             }
         }
