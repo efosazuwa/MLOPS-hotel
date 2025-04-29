@@ -14,11 +14,32 @@ pipeline{
                 }
             }
         }
+        stage('Install UV Package Manager'){
+            steps{
+                script{
+                    echo 'Installing UV package manager if not available...'
+                    sh '''
+                        if ! command -v uv &> /dev/null; then
+                            echo "Installing uv package manager..."
+                            curl -LsSf https://astral.sh/uv/install.sh | sh
+                            export PATH="$HOME/.cargo/bin:$PATH"
+                        fi
+                        
+                        # Make sure uv is available
+                        uv --version
+                    '''
+                }
+            }
+        }
         stage('Setting up our virtual Enviornment and installing dependencies...'){
             steps{
                 script{
                     echo 'Setting up our virtual Enviornment and installing dependencies...'
-                    sh '. ${VENV_DIR}/bin/activate'
+                    sh '''
+                        uv sync --frozen
+                        uv pip install -e .
+                        uv pip list
+                        '''
                 }
             }
         }
