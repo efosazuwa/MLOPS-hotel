@@ -25,7 +25,7 @@ ENV PATH="/code/.venv/bin:$PATH"
 ENV PYTHONPATH="${PYTHONPATH}:/app"
 
 # Train model
-RUN python pipeline/training_pipeline.py
+RUN . /app/venv/bin/activate && python pipeline/training_pipeline.py
 
 EXPOSE  5000
 
