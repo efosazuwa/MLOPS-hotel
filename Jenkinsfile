@@ -36,6 +36,7 @@ pipeline{
                         uv sync --frozen
                         uv pip install -e .
                         uv pip list
+                        . ${VENV_DIR}/bin/activate
                         '''
                 }
             }
