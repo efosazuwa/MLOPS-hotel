@@ -36,7 +36,7 @@ pipeline{
                         uv sync --frozen
                         uv pip install -e .
                         uv pip list
-                    '''
+                        '''
                 }
             }
         }
@@ -57,6 +57,7 @@ pipeline{
                             docker build -t gcr.io/${GCP_PROJECT}/hotel-mlops:latest .
 
                             docker push gcr.io/${GCP_PROJECT}/hotel-mlops:latest
+                            '''
 
                     }
                 }
