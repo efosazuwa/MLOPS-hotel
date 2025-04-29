@@ -22,6 +22,7 @@ RUN uv pip install -e .
 
 #Put virtual env path just created to the front 
 ENV PATH="/app/.venv/bin:$PATH"
+ENV PYTHONPATH="${PYTHONPATH}:/app"
 
 # Train model
 RUN python pipeline/training_pipeline.py
