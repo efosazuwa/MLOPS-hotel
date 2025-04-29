@@ -21,11 +21,10 @@ RUN uv sync --frozen
 RUN uv pip install -e .
 
 #Put virtual env path just created to the front 
-ENV PATH="/code/.venv/bin:$PATH"
-ENV PYTHONPATH="${PYTHONPATH}:/app"
+ENV PATH="/app/.venv/bin:$PATH"
 
 # Train model
-RUN . /app/venv/bin/activate && python pipeline/training_pipeline.py
+RUN python pipeline/training_pipeline.py
 
 EXPOSE  5000
 
