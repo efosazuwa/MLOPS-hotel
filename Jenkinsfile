@@ -18,7 +18,7 @@ pipeline{
             steps{
                 script{
                     echo 'Setting up our virtual Enviornment and installing dependencies...'
-                    sh 'source ${VENV_DIR}/bin/activate'
+                    sh '. ${VENV_DIR}/bin/activate'
                 }
             }
         }
