@@ -1,4 +1,3 @@
-# Hotel Reservation Cancellation Prediction
 
 A LightGBM classifier predicts whether a hotel booking will be canceled from details such as lead time, room price, and market segment. The project packages training, MLflow experiment tracking, and a Flask prediction form in a single repository.
 
@@ -44,3 +43,6 @@ The baseline produces zero cancellation predictions, so its cancellation precisi
 ## Sources
 
 This is my implementation of the hotel project from Sudhanshu Gusain and KRISHAI Technologies’ MLOps course. The repo includes my dependency setup using uv, modeling notebook, Flask app, and Cloud Run deployment configuration. [Course](https://www.udemy.com/course/mastering-advanced-mlops-on-gcp-cicd-kubernetes-kubeflow/) · [Hotel Reservations dataset](https://www.kaggle.com/datasets/ahsan81/hotel-reservations-classification-dataset)
+=======
+# MLOPS Pipeline
+By: Efosa Osazuwa
