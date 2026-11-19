@@ -1,3 +1,6 @@
+# Hotel Reservation Cancellation Prediction
+
+By Efosa Osazuwa
 
 A LightGBM classifier predicts whether a hotel booking will be canceled from details such as lead time, room price, and market segment. The project packages training, MLflow experiment tracking, and a Flask prediction form in a single repository.
 
