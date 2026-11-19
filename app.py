@@ -1,5 +1,5 @@
 import joblib
-import numpy as np
+import pandas as pd
 from config.paths_config import MODEL_OUTPUT_PATH
 from flask import Flask, render_template, request
 
@@ -10,24 +10,19 @@ loaded_model = joblib.load(MODEL_OUTPUT_PATH)
 @app.route('/', methods=["GET", "POST"])
 def index():
     if request.method == "POST":
-        lead_time = int(request.form['lead_time'])
-        num_of_special_request = int(request.form['num_of_special_request'])
-        avg_price_per_room = float(request.form['avg_price_per_room'])
-        arrival_month = int(request.form['arrival_month'])
-        arrival_date = int(request.form['arrival_date'])
-
-        market_segment_type = int(request.form['market_segment_type'])
-        num_of_week_nights = int(request.form['num_of_week_nights'])
-        num_of_weekend_nights = int(request.form['num_of_weekend_nights'])
-
-        type_of_meal_plan = int(request.form['type_of_meal_plan'])
-        room_type_reserved = int(request.form['room_type_reserved'])
-
-        features = np.array([[lead_time, num_of_special_request, avg_price_per_room, arrival_month, arrival_date,
-                             market_segment_type, num_of_week_nights, num_of_weekend_nights, type_of_meal_plan,
-                             room_type_reserved]])
-        
-        prediction = loaded_model.predict(features)
+        features = pd.DataFrame([{
+            "lead_time": int(request.form["lead_time"]),
+            "no_of_special_requests": int(request.form["num_of_special_request"]),
+            "avg_price_per_room": float(request.form["avg_price_per_room"]),
+            "arrival_month": int(request.form["arrival_month"]),
+            "arrival_date": int(request.form["arrival_date"]),
+            "market_segment_type": int(request.form["market_segment_type"]),
+            "no_of_week_nights": int(request.form["num_of_week_nights"]),
+            "no_of_weekend_nights": int(request.form["num_of_weekend_nights"]),
+            "type_of_meal_plan": int(request.form["type_of_meal_plan"]),
+            "room_type_reserved": int(request.form["room_type_reserved"]),
+        }])
+        prediction = loaded_model.predict(features.loc[:, loaded_model.feature_name_])
 
         return render_template('index.html', prediction=prediction[0])
     
