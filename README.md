@@ -39,10 +39,3 @@ I scored the checked-in model on the [original test split](artifacts/raw_data/te
 | Always predict no cancellation | 66.3% | — | 0.0% | 0.0% |
 
 The baseline produces zero cancellation predictions, so its cancellation precision is undefined. The training pipeline’s saved metrics use a test set rebalanced with SMOTE. The table above uses the original cancellation rate from the raw test split.
-
-## Sources
-
-This is my implementation of the hotel project from Sudhanshu Gusain and KRISHAI Technologies’ MLOps course. The repo includes my dependency setup using uv, modeling notebook, Flask app, and Cloud Run deployment configuration. [Course](https://www.udemy.com/course/mastering-advanced-mlops-on-gcp-cicd-kubernetes-kubeflow/) · [Hotel Reservations dataset](https://www.kaggle.com/datasets/ahsan81/hotel-reservations-classification-dataset)
-=======
-# MLOPS Pipeline
-By: Efosa Osazuwa
